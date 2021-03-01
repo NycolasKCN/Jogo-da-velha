@@ -11,6 +11,8 @@ main = tk.Tk()
 main.geometry("400x400")
 main.resizable(width=False, height=False)
 
+# Estrategia para definir empate atraves da contagem das rodadas
+count = 0
 
 player1 = 1  # Player 1 vale "1", logo admitimos que ele será o X
 player2 = -1  # Player 2 vale "-1", logo admitimos que ele será o O
@@ -57,10 +59,6 @@ def clique(pos, lin="", col=""):
 
         # Alterando os valores no board backend
         board[lin][col] = jogador[0]
-        for l in range(3):
-            for c in range(3):
-                print(f"{board[l][c]} ", end="")
-            print("")
 
         # Trocando o player na lista "jogador"
         # Até aqui a lista "jogador" inidica que quem jogou foi o "X"
@@ -110,6 +108,9 @@ def mark(pos_x, pos_y):
 
 
 def ganhou():
+    global count
+    count += 1
+
     # Checando as linhas e declarando o ganhador
     for i in range(3):
         soma = board[i][0] + board[i][1] + board[i][2]
@@ -148,6 +149,11 @@ def ganhou():
     if diagonal1 == -3 or diagonal2 == -3:
         showinfo(title="GANHADOR",
                  message="O jogador que estava jogando com o 'X' GANHOU")
+        main.destroy()
+
+    if count == 9:
+        showinfo(title="Empate",
+                 message="O jogo Empatou")
         main.destroy()
 
 
