@@ -2,11 +2,13 @@ from time import sleep
 try:
     import tkinter as tk
     from tkinter.messagebox import showinfo
-except:
+except ImportError:
     print("Não foi possivel rodar o jogo pois não se possue o tkinter, instali-o via pip e tente novamente")
     sleep(60)
+except:
+    print("Aconteceu um erro desconhecido")
 
-main = tk.Tk()
+main = tk.Tk() # Criando tela
 
 main.geometry("400x400")
 main.resizable(width=False, height=False)
@@ -93,7 +95,7 @@ def clique(pos, lin="", col=""):
 
 def mark(pos_x, pos_y):
     # Mark será nosso marcardor no frontend e irar ser modificado dependendo do botão que for clicado
-    # Neste caso como os valores são alterados a cada clique e no escopo do projeto esse def vem por Ultimo
+    # Neste caso como os valores são alterados a cada clique e no escopo do projeto a chamada da função deve vir por Ultimo
     # os valores serão inversos
     if jogador[0] == -1:
         mark = tk.Label(main, text="X", font=("Retrosans", 26))
@@ -115,41 +117,29 @@ def ganhou():
     for i in range(3):
         soma = board[i][0] + board[i][1] + board[i][2]
         if soma == 3:
-            showinfo(title="GANHADOR",
-                     message="O jogador que estava jogando com o 'X' GANHOU")
-            main.destroy()
+            resultado("X")
 
         elif soma == -3:
-            showinfo(title="GANHADOR",
-                     message="O jogador que estava jogando com o 'O' GANHOU")
-            main.destroy()
+            resultado("O")
 
     # Checando as colunas e declarando o ganhador
     for i in range(3):
         soma = board[0][i] + board[1][i] + board[2][i]
         if soma == 3:
-            showinfo(title="GANHADOR",
-                     message="O jogador que estava jogando com o 'X' GANHOU")
-            main.destroy()
+            resultado("X")
 
         elif soma == -3:
-            showinfo(title="GANHADOR",
-                     message="O jogador que estava jogando com o 'O' GANHOU")
-            main.destroy()
+            resultado("O")
 
     # Checando as diagonais e declarando ganhador
     diagonal1 = board[0][0]+board[1][1]+board[2][2]
     diagonal2 = board[0][2]+board[1][1]+board[2][0]
 
     if diagonal1 == 3 or diagonal2 == 3:
-        showinfo(title="GANHADOR",
-                 message="O jogador que estava jogando com o 'X' GANHOU")
-        main.destroy()
+        resultado("X")
 
     if diagonal1 == -3 or diagonal2 == -3:
-        showinfo(title="GANHADOR",
-                 message="O jogador que estava jogando com o 'X' GANHOU")
-        main.destroy()
+        resultado("O")
 
     if count == 9:
         showinfo(title="Empate",
