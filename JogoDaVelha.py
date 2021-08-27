@@ -5,8 +5,11 @@ try:
 except ImportError:
     print("Não foi possivel rodar o jogo pois não se possue o tkinter, instali-o via pip e tente novamente")
     sleep(60)
+    exit()
 except:
     print("Aconteceu um erro desconhecido")
+    sleep(60)
+    exit()
 
 main = tk.Tk() # Criando tela
 
